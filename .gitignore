@@ -1,0 +1,28 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# SQLite
+*.sqlite
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+
+# Środowisko
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Logi
+logs/
+*.log
+
+# Inne
+.DS_Store
+.idea/
+.vscode/
+**/node_modules/

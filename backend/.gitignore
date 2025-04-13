@@ -1,0 +1,9 @@
+./package-lock.json
+/node_modules/
+/.idea
+
+# WARNING
+# Do not add .env to .gitignore right now as it doesn't have any sensitive data.
+#.gitignore
+
+database.sqlite
