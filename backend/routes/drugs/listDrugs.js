@@ -17,7 +17,6 @@ router.post("/api/v1/listDrugs", (req, res) => {
         
         console.log(`Pobieranie leków: strona=${page}, limit=${limit}, filtry=${JSON.stringify(filter)}`);
 
-        // Poprawiona logika tworzenia warunku WHERE
         let filterSQL = "";
         if (filter.length > 0) {
             filterSQL = "WHERE " + filter.map(x => {

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Nawigacja.css";
+import "./App.css";
 
 const Nawigacja = () => {
 
@@ -14,7 +14,7 @@ const Nawigacja = () => {
           <li onClick={() => navigate("/wyloguj")}>Wyloguj</li>
         </ul>
       </nav>
-      <div className="image-container">
+      <div className="main-container">
         <img src="src\assets\apteka.png" alt="Leki w aptece" />
       </div>
       <footer>

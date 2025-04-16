@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Rejestracja.css";
+import "./App.css";
 
 const Rejestracja = () => {
   const [formData, setFormData] = useState({
@@ -24,29 +24,31 @@ const Rejestracja = () => {
   };
 
   return (
-    <div className="registration-container">
-      <h2>Witaj w naszej aptece!</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Imię:</label>
-        <input type="text" name="imie" value={formData.imie} onChange={handleChange} required />
+    <div className="container">
+        <div className="registration-container">
+        <h2>Witaj w naszej aptece!</h2>
+        <form onSubmit={handleSubmit}>
+          <label>Imię:</label>
+          <input type="text" name="imie" value={formData.imie} onChange={handleChange} required />
 
-        <label>Nazwisko:</label>
-        <input type="text" name="nazwisko" value={formData.nazwisko} onChange={handleChange} required />
+          <label>Nazwisko:</label>
+          <input type="text" name="nazwisko" value={formData.nazwisko} onChange={handleChange} required />
 
-        <label>Email:</label>
-        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+          <label>Email:</label>
+          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
 
-        <label>Hasło:</label>
-        <input type="password" name="haslo" value={formData.haslo} onChange={handleChange} required />
+          <label>Hasło:</label>
+          <input type="password" name="haslo" value={formData.haslo} onChange={handleChange} required />
 
-        <label>Powtórz hasło:</label>
-        <input type="password" name="powtorzHaslo" value={formData.powtorzHaslo} onChange={handleChange} required />
+          <label>Powtórz hasło:</label>
+          <input type="password" name="powtorzHaslo" value={formData.powtorzHaslo} onChange={handleChange} required />
 
-        <button type="submit">Zarejestruj się</button>
-      </form>
-      <div className="login-prompt">
-        <p>Masz już konto?</p>
-        <button className="btn-secondary"E>Zaloguj się</button>
+          <button type="submit">Zarejestruj się</button>
+        </form>
+        <div className="login-prompt">
+          <p>Masz już konto?</p>
+          <button className="btn-secondary"E>Zaloguj się</button>
+        </div>
       </div>
     </div>
   );
