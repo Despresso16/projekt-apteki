@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 
-const Rejestracja = () => {
+const Rejestracja = ({ onRegister, navigateTo }) => {
   const [formData, setFormData] = useState({
     imie: "",
     nazwisko: "",
@@ -9,18 +9,50 @@ const Rejestracja = () => {
     haslo: "",
     powtorzHaslo: "",
   });
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     if (formData.haslo !== formData.powtorzHaslo) {
       alert("Hasła nie są identyczne!");
       return;
     }
-    console.log("Dane użytkownika:", formData);
+    const requestData = {
+      name: formData.imie,
+      surname: formData.nazwisko,
+      email: formData.email,
+      password: formData.haslo
+    };
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/v1/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData),
+      });
+      
+      const data = await response.json();
+      
+      if (data.status === "success") {
+        console.log("Rejestracja udana!");
+        onRegister(data.data);
+      } else {
+        setError(data.data || "Wystąpił błąd podczas rejestracji");
+      }
+    } catch (error) {
+      setError("Wystąpił błąd podczas łączenia z serwerem");
+      console.error("Błąd rejestracji:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -47,7 +79,7 @@ const Rejestracja = () => {
         </form>
         <div className="login-prompt">
           <p>Masz już konto?</p>
-          <button className="btn-secondary"E>Zaloguj się</button>
+          <button className="btn-secondary" onClick={() => navigateTo("nawigacja")}>Zaloguj się</button>
         </div>
       </div>
     </div>

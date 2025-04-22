@@ -1,17 +1,17 @@
 import React from "react";
 import "./App.css";
 
-const Nawigacja = () => {
+const Nawigacja = ({ userToken, navigateTo }) => {
 
   return (
     <div className="apteka-container">
       <nav className="nav-bar">
         <h1>Apteka</h1>
         <ul>
-          <li onClick={() => navigate("/leki")}>Lista leków</li>
-          <li onClick={() => navigate("/kontakt")}>Kontakt</li>
-          <li onClick={() => navigate("/konto")}>Konto</li>
-          <li onClick={() => navigate("/wyloguj")}>Wyloguj</li>
+          <li onClick={() => navigateTo("/leki")}>Lista leków</li>
+          <li onClick={() => navigateTo("/kontakt")}>Kontakt</li>
+          <li onClick={() => navigateTo("/konto")}>Konto</li>
+          <li onClick={() => navigateTo("/wyloguj")}>Wyloguj</li>
         </ul>
       </nav>
       <div className="main-container">
