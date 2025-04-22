@@ -10,7 +10,6 @@ const Rejestracja = ({ onRegister, navigateTo }) => {
     powtorzHaslo: "",
   });
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -29,7 +28,6 @@ const Rejestracja = ({ onRegister, navigateTo }) => {
       email: formData.email,
       password: formData.haslo
     };
-    setIsLoading(true);
     try {
       const response = await fetch('/api/v1/register', {
         method: 'POST',
@@ -50,8 +48,6 @@ const Rejestracja = ({ onRegister, navigateTo }) => {
     } catch (error) {
       setError("Wystąpił błąd podczas łączenia z serwerem");
       console.error("Błąd rejestracji:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -79,7 +75,7 @@ const Rejestracja = ({ onRegister, navigateTo }) => {
         </form>
         <div className="login-prompt">
           <p>Masz już konto?</p>
-          <button className="btn-secondary" onClick={() => navigateTo("nawigacja")}>Zaloguj się</button>
+          <button className="btn-secondary" onClick={() => navigateTo("logowanie")}>Zaloguj się</button>
         </div>
       </div>
     </div>

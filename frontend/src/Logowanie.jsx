@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "./App.css";
 
-const LogowanieUser = () => {
-  const [formData, setFormData] = useState({ email: "", haslo: "" });
+const LogowanieUser = ({ onRegister, navigateTo }) => {
+  const [formData, setFormData] = useState({
+      email: "",
+      haslo: "" 
+    });
+    const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -10,7 +14,6 @@ const LogowanieUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Logowanie dane:", formData);
   };
 
   return (

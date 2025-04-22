@@ -8,10 +8,8 @@ const Nawigacja = ({ userToken, navigateTo }) => {
       <nav className="nav-bar">
         <h1>Apteka</h1>
         <ul>
-          <li onClick={() => navigateTo("/leki")}>Lista leków</li>
-          <li onClick={() => navigateTo("/kontakt")}>Kontakt</li>
-          <li onClick={() => navigateTo("/konto")}>Konto</li>
-          <li onClick={() => navigateTo("/wyloguj")}>Wyloguj</li>
+          <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
+          <li onClick={() => navigateTo("historia")}>Konto</li>
         </ul>
       </nav>
       <div className="main-container">

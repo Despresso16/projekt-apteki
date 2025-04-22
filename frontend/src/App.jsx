@@ -17,7 +17,6 @@ const App = () => {
 
   const handleUserLogin = (token) => {
     setUserToken(token);
-    navigateTo("nawigacja");
   };
 
   const renderPage = () => {
