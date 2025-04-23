@@ -1,0 +1,126 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+}
+body {
+    background-color: #1a1a1a;
+    color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.konto {
+    padding: 25px;
+    background-color: #2a2a2a;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin: 0 auto;
+}
+.konto .koh1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #f1f1f1;
+}
+
+.konto .koh2 {
+    margin-top: 20px;
+    font-size: 22px;
+    color: #f1f1f1;
+    text-align: left;
+    padding-left: 10px;
+}
+
+/* Top buttons - always horizontal */
+.koprzyciski {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.koprzyciski button {
+    padding: 12px 20px;
+    font-size: 18px;
+    background-color: #008802;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    white-space: nowrap;
+}
+
+.koprzyciski button:hover {
+    background-color: #009f03;
+}
+
+.kotable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: #3a3a3a;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.koth, .kotd {
+    padding: 16px;
+    text-align: left;
+}
+
+.koth {
+    background-color: #444;
+    color: #f1f1f1;
+    font-size: 18px;
+    width: 40%;
+}
+
+.kotd {
+    color: #bbbbbb;
+    font-size: 16px;
+    border-bottom: 1px solid #555;
+}
+.koprzyciski-dol {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.koprzyciski-dol button {
+    padding: 12px 16px;
+    font-size: 16px;
+    background-color: #008802;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1;
+    transition: background-color 0.3s;
+}
+
+.koprzyciski-dol button:hover {
+    background-color: #009f03;
+}
+
+/* Responsive adjustments - keep buttons horizontal */
+@media (max-width: 768px) {
+    .koprzyciski {
+        padding-bottom: 5px;
+    }
+    
+    .koth, .kotd {
+        padding: 12px;
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,77 @@
+.admin-panel {
+    width: 90%;
+    max-width: 900px;
+    padding: 25px;
+    background-color: #2a2a2a;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.aph1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.apprzyciski {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.apprzyciski button {
+    padding: 12px 20px;
+    font-size: 18px;
+    background-color: #008802;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.apprzyciski button:hover {
+    background-color: #009f03;
+}
+
+.aptab {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background-color: #3a3a3a;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.apth, .aptd {
+    padding: 16px;
+    text-align: center;
+}
+
+.apth {
+    background-color: #444;
+    color: #f1f1f1;
+    font-size: 18px;
+}
+
+.aptd {
+    color: #bbbbbb;
+    font-size: 16px;
+    border-bottom: 1px solid #555;
+}
+
+.btn-edytuj {
+    padding: 10px 16px;
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-edytuj:hover {
+    background-color: #e0a800;
+}
