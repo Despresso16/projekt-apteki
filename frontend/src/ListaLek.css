@@ -1,83 +1,118 @@
 
-  
-  .nav-bar {
-    width: 100%;
-    padding: 10px;
-    background-color: #2a2a2a;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    text-align: center;
-    border-radius: 12px;
+.llbod{
+  margin-top: 1px;
+}
+.llcontainer {
+  margin-top: 650px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+.llnav-bar {
+  width: 100%;
+  padding: 20px;
+  background-color: #2a2a2a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.llnav-bar .llh1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.llnav-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.llnav-buttons button {
+  padding: 12px 20px;
+  font-size: 18px;
+  background-color: #008802;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.llnav-buttons button:hover {
+  background-color: #009f03;
+}
+.lista-lekow {
+  padding: 25px;
+  background-color: #2a2a2a;
+  border-radius: 12px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.lista-lekow h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.lltable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.llth, .lltd {
+  padding: 16px;
+  text-align: center;
+}
+
+.llth {
+  background-color: #3a3a3a;
+  color: #f1f1f1;
+  font-size: 18px;
+  border-bottom: 2px solid #444;
+}
+
+.lltd {
+  color: #bbbbbb;
+  font-size: 16px;
+  border-bottom: 1px solid #444;
+}
+
+.btn-dodaj {
+  padding: 10px 16px;
+  background-color: #008802;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-dodaj:hover {
+  background-color: #009f03;
+}
+
+@media (max-width: 480px) {
+  .llnav-bar .llh1 {
+    font-size: 24px;
   }
-  
-  .nav-bar h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
+
+  .llnav-buttons {
+    justify-content: space-around;
   }
-  .nav-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+
+  .llnav-buttons button {
+    flex: 1 1 auto;
+    min-width: 120px;
   }
-  
-  .nav-buttons button {
-    padding: 12px 20px;
-    font-size: 18px;
-    background-color: #008802;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .nav-buttons button:hover {
-    background-color: #009f03;
-  }
-  
-  .lista-lekow {
-    margin: 30px 10px 0px 10px;
-    width: 90%;
-    max-width: 900px;
-    padding: 25px;
-    background-color: #2a2a2a;
-    border-radius: 12px;
-    text-align: center;
-    flex-grow: 1;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-  th, td {
-    padding: 16px;
-    text-align: center;
-  }
-  
-  th {
-    background-color: #3a3a3a;
-    color: #f1f1f1;
-    font-size: 18px;
-  }
-  
-  td {
-    color: #bbbbbb;
-    font-size: 16px;
-    border-bottom: 1px solid #444;
-  }
-  
-  .btn-dodaj {
-    padding: 12px 16px;
-    background-color: #008802;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .btn-dodaj:hover {
-    background-color: #009f03;
-  }
-  
+}

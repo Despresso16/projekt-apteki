@@ -8,20 +8,20 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-h1 {
+.aph1 {
     font-size: 28px;
     margin-bottom: 20px;
     color: white;
 }
 
-.przyciski {
+.apprzyciski {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-bottom: 20px;
 }
 
-.przyciski button {
+.apprzyciski button {
     padding: 12px 20px;
     font-size: 18px;
     background-color: #008802;
@@ -32,11 +32,11 @@ h1 {
     transition: background-color 0.3s;
 }
 
-.przyciski button:hover {
+.apprzyciski button:hover {
     background-color: #009f03;
 }
 
-table {
+.aptab {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
@@ -45,18 +45,18 @@ table {
     overflow: hidden;
 }
 
-th, td {
+.apth, .aptd {
     padding: 16px;
     text-align: center;
 }
 
-th {
+.apth {
     background-color: #444;
     color: #f1f1f1;
     font-size: 18px;
 }
 
-td {
+.aptd {
     color: #bbbbbb;
     font-size: 16px;
     border-bottom: 1px solid #555;

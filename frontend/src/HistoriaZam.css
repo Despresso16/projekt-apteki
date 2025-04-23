@@ -8,20 +8,20 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-h1 {
+.hzh1 {
     font-size: 28px;
     margin-bottom: 20px;
     color: white;
 }
 
-.przyciski {
+.hzprzyciski {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-bottom: 20px;
 }
 
-.przyciski button {
+.hzprzyciski button {
     padding: 12px 20px;
     font-size: 18px;
     background-color: #008802;
@@ -36,7 +36,7 @@ h1 {
     background-color: #009f03;
 }
 
-table {
+.hztable {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
@@ -45,18 +45,18 @@ table {
     overflow: hidden;
 }
 
-th, td {
+.hzth, .hztd {
     padding: 16px;
     text-align: center;
 }
 
-th {
+.hzth {
     background-color: #444;
     color: #f1f1f1;
     font-size: 18px;
 }
 
-td {
+.hztd {
     color: #bbbbbb;
     font-size: 16px;
     border-bottom: 1px solid #555;

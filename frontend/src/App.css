@@ -164,3 +164,6 @@ footer {
   font-size: 14px;
   margin-top: auto;
 }
+.error-message{
+  color: red;
+}

@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
 
-const Nawigacja = ({ userToken, navigateTo }) => {
-
+const Nawigacja = ({ userToken, navigateTo, onLogout }) => {
   return (
     <div className="apteka-container">
       <nav className="nav-bar">
@@ -10,10 +9,11 @@ const Nawigacja = ({ userToken, navigateTo }) => {
         <ul>
           <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
           <li onClick={() => navigateTo("historia")}>Konto</li>
+          <li onClick={onLogout}>Wyloguj</li>
         </ul>
       </nav>
       <div className="main-container">
-        <img src="src\assets\apteka.png" alt="Leki w aptece" />
+        <img src="src/assets/apteka.png" alt="Leki w aptece" />
       </div>
       <footer>
         <p>© 2025 Apteka Online. Wszelkie prawa zastrzeżone.</p>

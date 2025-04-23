@@ -1,33 +1,33 @@
 import React from 'react';
 import "./AdminPanel.css"
 
-const AdminPanel = () => {
+const AdminPanel = ({navigateTo}) => {
     return (
         <div className="admin-panel">
-            <h1>Zielona Apteka - panel administratora</h1>
-            <div className="przyciski">
-                <button>Lista Leków</button>
+            <h1 className='aph1'>Zielona Apteka - panel administratora</h1>
+            <div className="apprzyciski">
+                <button onClick={() => navigateTo("lista-lekow")}>Lista Leków</button>
                 <button>Dodaj lek</button>
-                <button>Wyloguj</button>
+                <button onClick={() => navigateTo("konto")}>Konto</button>
             </div>
             <h2>Lista leków</h2>
-            <table>
-                <thead>
+            <table className='aptab'>
+                <thead className='apthead'>
                     <tr>
-                        <th>Nazwa</th>
-                        <th>Typ</th>
-                        <th>Cena</th>
-                        <th>Ilość w magazynie</th>
-                        <th>Akcja</th>
+                        <th className='apth'>Nazwa</th>
+                        <th className='apth'>Typ</th>
+                        <th className='apth'>Cena</th>
+                        <th className='apth'>Ilość w magazynie</th>
+                        <th className='apth'>Akcja</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Ibuprofen</td>
-                        <td>Przeciwbólowy</td>
-                        <td>20 zł</td>
-                        <td>150 szt.</td>
-                        <td><button className="btn-edytuj">Edytuj</button></td>
+                        <td className='aptd'>Ibuprofen</td>
+                        <td className='aptd'>Przeciwbólowy</td>
+                        <td className='aptd'>20 zł</td>
+                        <td className='aptd'>150 szt.</td>
+                        <td className='aptd'><button className="btn-edytuj">Edytuj</button></td>
                     </tr>
                 </tbody>
             </table>
