@@ -114,7 +114,7 @@ const App = () => {
 
   return (
     <>
-      <Nawigacja/>
+      {renderPage()}
     </>
   )
 }
