@@ -6,7 +6,7 @@ import ListaLek from "./ListaLek.jsx";
 import Koszyk from "./Koszyk.jsx";
 import HistoriaZam from "./HistoriaZam.jsx";
 import AdminPanel from "./AdminPanel.jsx";
-import ResHaslo from "./ResHaslo.jsx";
+import Konto from "./Konto.jsx";
 
 const App = () => {
   const getInitialPage = () => {
@@ -42,7 +42,7 @@ const App = () => {
 
   useEffect(() => {
     const validateToken = async () => {
-      if (!userToken) {
+      if (userToken == null) {
         if (['nawigacja', 'lista-lekow', 'koszyk', 'historia', 'admin'].includes(currentPage)) {
           navigateTo("logowanie");
         }
@@ -105,8 +105,11 @@ const App = () => {
         return <HistoriaZam userToken={userToken} navigateTo={navigateTo} />;
       case "admin":
         return <AdminPanel userToken={userToken} navigateTo={navigateTo} />;
-      case "res-haslo":
-        return <ResHaslo userToken={userToken} navigateTo={navigateTo} />
+      case "raporty":
+        console.log("Nie ma jeszcze stronki od raportów, TODO");
+        return
+      case "konto":
+        return <Konto userToken={userToken} navigateTo={navigateTo} onLogout={handleUserLogout} />;
       default:
         return <Rejestracja onRegister={handleUserLogin} navigateTo={navigateTo} />;
     }

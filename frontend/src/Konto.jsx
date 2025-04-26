@@ -1,13 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Konto.css';
 
-const Account = (navigateTo) => {
-  const userData = {
-    firstName: "Jan",
-    lastName: "Kowalski",
-    email: "jan.kowalski@example.com",
-    placeOfResidence: "Warszawa, ul. Marszałkowska 1"
-  };
+const Konto = ({userToken, navigateTo, onLogout}) => {
+  const [userData, setUserData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    permission: ""
+  });
+
+   useEffect(() => {
+      console.log("userToken: " + userToken);
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch('/api/v1/me', {
+            headers: {
+              'Authorization': userToken
+            }
+          });
+          
+          if (response.ok) {
+            const user = await response.json();
+            let perm = "";
+            if(user.email === "admin@zielonaApteka.pl"){
+              perm = "admin"
+            }
+            else if(user.email == "pracownik1@zielonaApteka.pl") perm = "Pracownik";
+            else perm = "Użytkownik";
+            setUserData({
+              firstName: user.name,
+              lastName: user.surname,
+              email: user.email,
+              permission: perm
+            })
+          }
+        } catch (error) {
+          console.error("Błąd pobierania danych użytkownika:", error);
+        }
+      };
+      
+      if (userToken) {
+        fetchUserData();
+      }
+    }, [userToken]);
 
   return (
     <div className="konto">
@@ -17,7 +52,7 @@ const Account = (navigateTo) => {
         <button onClick={() => navigateTo("lista-lekow")}>Lista Leków</button>
         <button onClick={() => navigateTo("historia")}>Historia Zamówień</button>
         <button onClick={() => navigateTo("koszyk")}>Koszyk</button>
-        <button>Wyloguj</button>
+        <button onClick={() => onLogout()}>Wyloguj się</button>
       </div>
       
       <h2 className="koh2">Dane:</h2>
@@ -36,18 +71,14 @@ const Account = (navigateTo) => {
             <td className="kotd">{userData.email}</td>
           </tr>
           <tr>
-            <th className="koth">Miejsce zamieszkania</th>
-            <td className="kotd">{userData.placeOfResidence}</td>
+            <th className="koth">Poziom dostępu</th>
+            <td className="kotd">{userData.permission}</td>
           </tr>
         </tbody>
       </table>
       
-      <div className="koprzyciski-dol">
-        <button>Zmień dane</button>
-        <button>Zmień hasło</button>
-      </div>
     </div>
   );
 };
 
-export default Account;
+export default Konto;
