@@ -4,12 +4,6 @@ npm-debug.log
 yarn-debug.log
 yarn-error.log
 
-# SQLite
-*.sqlite
-*.sqlite-journal
-*.sqlite-wal
-*.sqlite-shm
-
 # Środowisko
 .env
 .env.local
