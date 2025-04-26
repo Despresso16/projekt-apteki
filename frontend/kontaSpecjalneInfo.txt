@@ -1,0 +1,6 @@
+Admin:
+admin@zielonaApteka.pl
+zielono1901
+Pracownik:
+pracownik1@zielonaApteka.pl
+zielonaPraca1918
