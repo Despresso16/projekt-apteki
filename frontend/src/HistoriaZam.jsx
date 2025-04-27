@@ -1,14 +1,63 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import "./HistoriaZam.css";
 
-const HistoriaZam = ({navigateTo}) => {
+
+const HistoriaZam = ({ userToken, navigateTo, onLogout }) => {
+
+    const [currentImage, setCurrentImage] = useState(0);
+    const [isEmployee, setIsEmployee] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    
+    useEffect(() => {
+    console.log("userToken: " + userToken);
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch('/api/v1/me', {
+              headers: {
+                'Authorization': userToken
+              }
+            });
+            
+            if (response.ok) {
+              const userData = await response.json();
+              setIsEmployee(false)
+              setIsAdmin(false)
+              if(userData.email === "admin@zielonaApteka.pl"){
+                setIsEmployee(true)
+                setIsAdmin(true)
+              }
+              else if(userData.email == "pracownik1@zielonaApteka.pl") setIsEmployee(true);
+            }
+          } catch (error) {
+            console.error("Błąd pobierania danych użytkownika:", error);
+          }
+        };
+        
+        if (userToken) {
+          fetchUserData();
+        }
+      }, [userToken]);
+
     return (
         <div className="historia-zam">
             <h1 className='hzh1'>Historia zamówień</h1>
             <div className="hzprzyciski">
-                <button onClick={() => navigateTo("lista-lekow")}>Lista Leków</button>
-                <button onClick={() => navigateTo("koszyk")}>Koszyk</button>
-                <button onClick={() => navigateTo("konto")}>Konto</button>
+            <ul className='hznav'>
+          {!isEmployee && (
+            <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
+          )}
+          {!isEmployee && (
+            <li onClick={() => navigateTo("koszyk")}>Koszyk</li>
+          )}
+          {isEmployee && (
+            <li onClick={() => navigateTo("raporty")}>Raporty zamówień</li>
+          )}
+          {isAdmin && (
+            <li onClick={() => navigateTo("admin")}>Panel administratora</li>
+          )}
+          <li onClick={() => navigateTo("konto")}>Konto</li>
+          <li onClick={() => onLogout()}>Wyloguj się</li>
+        </ul>
             </div>
             <table className='hztable'>
                 <thead>

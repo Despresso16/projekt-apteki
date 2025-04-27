@@ -1,126 +1,93 @@
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
-}
-body {
-    background-color: #1a1a1a;
-    color: #f1f1f1;
+.konto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    background-color: #1e1e1e;
+    min-height: 100vh;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+  }
+
+  .koh1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  .koprzyciski {
+    margin: 20px 0;
+  }
+  
+  .konav {
+    list-style: none;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 0;
+  }
+  
+  .konav li {
+    padding: 10px 18px;
+    background-color: #008802;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .konav li:hover {
+    background-color: #009f03;
+  }
 
-.konto {
-    padding: 25px;
+  .koh2 {
+    font-size: 26px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+  
+  .ktable {
+    width: 100%;
+    max-width: 600px;
+    border-collapse: collapse;
     background-color: #2a2a2a;
     border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    margin: 0 auto;
-}
-.konto .koh1 {
-    font-size: 28px;
-    margin-bottom: 15px;
-    color: #f1f1f1;
-}
-
-.konto .koh2 {
-    margin-top: 20px;
-    font-size: 22px;
-    color: #f1f1f1;
-    text-align: left;
-    padding-left: 10px;
-}
-
-/* Top buttons - always horizontal */
-.koprzyciski {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-}
-
-.koprzyciski button {
-    padding: 12px 20px;
-    font-size: 18px;
-    background-color: #008802;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    white-space: nowrap;
-}
-
-.koprzyciski button:hover {
-    background-color: #009f03;
-}
-
-.kotable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    background-color: #3a3a3a;
-    border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 25px;
-}
-
-.koth, .kotd {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .koth, .kotd {
     padding: 16px;
     text-align: left;
-}
-
-.koth {
-    background-color: #444;
-    color: #f1f1f1;
     font-size: 18px;
+  }
+  
+  .koth {
+    background-color: #3a3a3a;
+    color: #f1f1f1;
     width: 40%;
-}
-
-.kotd {
+  }
+  
+  .kotd {
+    background-color: #2a2a2a;
     color: #bbbbbb;
-    font-size: 16px;
-    border-bottom: 1px solid #555;
-}
-.koprzyciski-dol {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.koprzyciski-dol button {
-    padding: 12px 16px;
-    font-size: 16px;
-    background-color: #008802;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    flex: 1;
-    transition: background-color 0.3s;
-}
-
-.koprzyciski-dol button:hover {
-    background-color: #009f03;
-}
-
-/* Responsive adjustments - keep buttons horizontal */
-@media (max-width: 768px) {
-    .koprzyciski {
-        padding-bottom: 5px;
+    border-top: 1px solid #444;
+  }
+  
+  @media (max-width: 600px) {
+    .konav {
+      flex-direction: column;
+      align-items: center;
     }
-    
-    .koth, .kotd {
-        padding: 12px;
-        font-size: 14px;
+  
+    .konav li {
+      width: 100%;
+      text-align: center;
     }
-}
+  
+    .ktable {
+      width: 90%;
+    }
+  }
+  

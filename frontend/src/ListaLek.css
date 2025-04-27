@@ -1,10 +1,5 @@
 
-.llbod{
-  margin-top: 1px;
-}
 .llcontainer {
-  width: 90vw;
-  height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,35 +7,96 @@
   background-color: #1e1e1e;
   color: #ffffff;
   font-family: Arial, sans-serif;
+  margin-top: 80px;
 }
+
 .llnav-bar {
   width: 100%;
-  padding: 20px;
+  padding: 20px 30px;
   background-color: #2a2a2a;
+  border-radius: 0 0 12px 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
-  border-radius: 12px;
   margin-bottom: 30px;
 }
 
-.llnav-bar .llh1 {
+.llh1 {
   font-size: 32px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
-.llnav-buttons {
+.llnav-buttons ul {
+  list-style: none;
   display: flex;
   justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
   gap: 15px;
-  max-width: 100%;
-  margin: 0 auto;
+  padding: 0;
 }
 
-.llnav-buttons button {
-  padding: 12px 20px;
-  font-size: 18px;
+.llnav-buttons li {
+  background-color: #008802;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.llnav-buttons li:hover {
+  background-color: #009f03;
+}
+.llprzyciski {
+  margin: 20px 0;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.llprzyciski button {
+  padding: 10px 20px;
+  background-color: #008802;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.llprzyciski button:hover {
+  background-color: #009f03;
+}
+.filtracja {
+  background-color: #2a2a2a;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  width: 90%;
+  max-width: 800px;
+}
+
+.filtracja h3, .filtracja h4 {
+  margin-bottom: 10px;
+}
+
+.filter-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-form select,
+.filter-form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+.filter-form button {
+  padding: 10px 20px;
   background-color: #008802;
   color: white;
   border: none;
@@ -49,21 +105,49 @@
   transition: background-color 0.3s ease;
 }
 
-.llnav-buttons button:hover {
+.filter-form button:hover {
   background-color: #009f03;
 }
+
+.active-filters ul {
+  list-style: none;
+  padding: 0;
+}
+
+.active-filters li {
+  margin-bottom: 8px;
+}
+
+.active-filters button {
+  margin-left: 10px;
+  padding: 4px 8px;
+  background-color: #cc0000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.active-filters button:hover {
+  background-color: #ff0000;
+}
 .lista-lekow {
-  padding: 25px;
+  width: 100%;
+  max-width: 1100px;
   background-color: #2a2a2a;
+  padding: 30px;
   border-radius: 12px;
   text-align: center;
-  margin-bottom: 40px;
+  margin-top: 20px;
 }
 
 .lista-lekow h2 {
-  font-size: 24px;
+  font-size: 26px;
   margin-bottom: 20px;
 }
+
 .lltable {
   width: 100%;
   border-collapse: collapse;
@@ -79,7 +163,6 @@
   background-color: #3a3a3a;
   color: #f1f1f1;
   font-size: 18px;
-  border-bottom: 2px solid #444;
 }
 
 .lltd {
@@ -88,18 +171,23 @@
   border-bottom: 1px solid #444;
 }
 
-.btn-dodaj {
-  padding: 10px 16px;
+.lista-lekow button {
+  padding: 8px 14px;
   background-color: #008802;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
   transition: background-color 0.3s ease;
 }
 
-.btn-dodaj:hover {
+.lista-lekow button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.lista-lekow button:hover:enabled {
   background-color: #009f03;
 }
 
@@ -109,7 +197,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -117,17 +205,18 @@
 }
 
 .popup-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  width: 90%;
+  background-color: #2a2a2a;
+  padding: 30px;
+  border-radius: 12px;
   max-width: 400px;
+  width: 90%;
+  text-align: center;
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
 }
 
 .popup-content h3 {
-  margin-top: 0;
-  color: #2e7d32;
+  margin-bottom: 15px;
 }
 
 .quantity-selector {
@@ -137,68 +226,55 @@
 .quantity-controls {
   display: flex;
   align-items: center;
-  margin-top: 8px;
-}
-
-.quantity-controls button {
-  width: 36px;
-  height: 36px;
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #e8f5e9;
-  border: 1px solid #a5d6a7;
-  cursor: pointer;
-}
-
-.quantity-controls button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  gap: 10px;
 }
 
 .quantity-controls input {
   width: 60px;
-  height: 36px;
   text-align: center;
-  margin: 0 8px;
-  border: 1px solid #a5d6a7;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+}
+
+.quantity-controls button {
+  padding: 8px 12px;
+  background-color: #008802;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.quantity-controls button:hover {
+  background-color: #009f03;
 }
 
 .popup-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 20px;
 }
 
 .popup-buttons button {
-  padding: 8px 16px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.popup-buttons button:first-child {
-  background-color: #2e7d32;
+  border-radius: 8px;
+  background-color: #008802;
   color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.popup-buttons button:last-child {
-  background-color: #e0e0e0;
+.popup-buttons button:hover {
+  background-color: #009f03;
 }
 
-
-@media (max-width: 480px) {
-  .llnav-bar .llh1 {
-    font-size: 24px;
-  }
-
-  .llnav-buttons {
-    justify-content: space-around;
-  }
-
-  .llnav-buttons button {
-    flex: 1 1 auto;
-    min-width: 120px;
-  }
+.error-message {
+  color: #ff4d4d;
+  font-weight: bold;
+  margin: 20px;
 }
+  

@@ -16,6 +16,39 @@ const AdminPanel = ({userToken, navigateTo, onLogout}) => {
         field: 'name',
         value: ''
     });
+    const [currentImage, setCurrentImage] = useState(0);
+      const [isEmployee, setIsEmployee] = useState(false);
+      const [isAdmin, setIsAdmin] = useState(false);
+    
+      useEffect(() => {
+        console.log("userToken: " + userToken);
+        const fetchUserData = async () => {
+          try {
+            const response = await fetch('/api/v1/me', {
+              headers: {
+                'Authorization': userToken
+              }
+            });
+            
+            if (response.ok) {
+              const userData = await response.json();
+              setIsEmployee(false)
+              setIsAdmin(false)
+              if(userData.email === "admin@zielonaApteka.pl"){
+                setIsEmployee(true)
+                setIsAdmin(true)
+              }
+              else if(userData.email == "pracownik1@zielonaApteka.pl") setIsEmployee(true);
+            }
+          } catch (error) {
+            console.error("Błąd pobierania danych użytkownika:", error);
+          }
+        };
+        
+        if (userToken) {
+          fetchUserData();
+        }
+      }, [userToken]);
     
     const [drugForm, setDrugForm] = useState({
         name: '',

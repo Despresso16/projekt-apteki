@@ -8,6 +8,39 @@ const Konto = ({userToken, navigateTo, onLogout}) => {
     email: "",
     permission: ""
   });
+  const [currentImage, setCurrentImage] = useState(0);
+    const [isEmployee, setIsEmployee] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+  
+    useEffect(() => {
+      console.log("userToken: " + userToken);
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch('/api/v1/me', {
+            headers: {
+              'Authorization': userToken
+            }
+          });
+          
+          if (response.ok) {
+            const userData = await response.json();
+            setIsEmployee(false)
+            setIsAdmin(false)
+            if(userData.email === "admin@zielonaApteka.pl"){
+              setIsEmployee(true)
+              setIsAdmin(true)
+            }
+            else if(userData.email == "pracownik1@zielonaApteka.pl") setIsEmployee(true);
+          }
+        } catch (error) {
+          console.error("Błąd pobierania danych użytkownika:", error);
+        }
+      };
+      
+      if (userToken) {
+        fetchUserData();
+      }
+    }, [userToken]);
 
    useEffect(() => {
       console.log("userToken: " + userToken);
@@ -49,10 +82,24 @@ const Konto = ({userToken, navigateTo, onLogout}) => {
       <h1 className="koh1">Twoje konto</h1>
       
       <div className="koprzyciski">
-        <button onClick={() => navigateTo("lista-lekow")}>Lista Leków</button>
-        <button onClick={() => navigateTo("historia")}>Historia Zamówień</button>
-        <button onClick={() => navigateTo("koszyk")}>Koszyk</button>
-        <button onClick={() => onLogout()}>Wyloguj się</button>
+      <ul className='konav'>
+          {!isEmployee && (
+            <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
+          )}
+          {!isEmployee && (
+            <li onClick={() => navigateTo("koszyk")}>Koszyk</li>
+          )}
+          {!isEmployee && (
+            <li onClick={() => navigateTo("historia")}>Historia zamówień</li>
+          )}
+          {isEmployee && (
+            <li onClick={() => navigateTo("raporty")}>Raporty zamówień</li>
+          )}
+          {isAdmin && (
+            <li onClick={() => navigateTo("admin")}>Panel administratora</li>
+          )}
+          <li onClick={() => onLogout()}>Wyloguj się</li>
+        </ul>
       </div>
       
       <h2 className="koh2">Dane:</h2>

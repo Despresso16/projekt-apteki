@@ -16,6 +16,39 @@ const ListaLek = ({ userToken, navigateTo, onLogout }) => {
   const [showQuantityPopup, setShowQuantityPopup] = useState(false);
   const [selectedDrug, setSelectedDrug] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [currentImage, setCurrentImage] = useState(0);
+    const [isEmployee, setIsEmployee] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+  
+    useEffect(() => {
+      console.log("userToken: " + userToken);
+      const fetchUserData = async () => {
+        try {
+          const response = await fetch('/api/v1/me', {
+            headers: {
+              'Authorization': userToken
+            }
+          });
+          
+          if (response.ok) {
+            const userData = await response.json();
+            setIsEmployee(false)
+            setIsAdmin(false)
+            if(userData.email === "admin@zielonaApteka.pl"){
+              setIsEmployee(true)
+              setIsAdmin(true)
+            }
+            else if(userData.email == "pracownik1@zielonaApteka.pl") setIsEmployee(true);
+          }
+        } catch (error) {
+          console.error("Błąd pobierania danych użytkownika:", error);
+        }
+      };
+      
+      if (userToken) {
+        fetchUserData();
+      }
+    }, [userToken]);
 
   const fetchDrugs = async () => {
     try {
@@ -136,10 +169,22 @@ const ListaLek = ({ userToken, navigateTo, onLogout }) => {
       <header className="llnav-bar">
         <h1 className="llh1">Witamy w Zielonej Aptece</h1>
         <div className="llnav-buttons">
-          <button onClick={() => navigateTo("koszyk")}>Koszyk</button>
-          <button onClick={() => navigateTo("historia")}>Historia zamówień</button>
-          <button onClick={() => navigateTo("konto")}>Konto</button>
-          <button onClick={onLogout}>Wyloguj</button>
+        <ul>
+          {!isEmployee && (
+            <li onClick={() => navigateTo("koszyk")}>Koszyk</li>
+          )}
+          {!isEmployee && (
+            <li onClick={() => navigateTo("historia")}>Historia zamówień</li>
+          )}
+          {isEmployee && (
+            <li onClick={() => navigateTo("raporty")}>Raporty zamówień</li>
+          )}
+          {isAdmin && (
+            <li onClick={() => navigateTo("admin")}>Panel administratora</li>
+          )}
+          <li onClick={() => navigateTo("konto")}>Konto</li>
+          <li onClick={() => onLogout()}>Wyloguj się</li>
+        </ul>
         </div>
       </header>
       
