@@ -24,6 +24,60 @@ const App = () => {
     return localStorage.getItem('userToken') || null;
   });
 
+  const [cart, setCart] = useState(() => {
+    const cartFromStorage = localStorage.getItem('cart');
+    if (cartFromStorage) {
+      try {
+        return JSON.parse(cartFromStorage);
+      } catch (e) {
+        console.error("Error parsing cart from localStorage:", e);
+        return [];
+      }
+    }
+    return [];
+  });
+
+  const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  
+  const addToCart = (drug, quantity) => {
+    setCart(prevCart => {
+      const existingItem = prevCart.find(item => item.idDrug === drug.idDrug);
+      
+      if (existingItem) {
+        return prevCart.map(item => 
+          item.idDrug === drug.idDrug 
+            ? {...item, quantity: Math.min(item.quantity + quantity, drug.amount)}
+            : item
+        );
+      } else {
+        return [...prevCart, {...drug, quantity}];
+      }
+    });
+  };
+  
+  const updateQuantity = (drugId, newQuantity) => {
+    setCart(prevCart => {
+      return prevCart.map(item => {
+        if (item.idDrug === drugId) {
+          return { ...item, quantity: Math.min(Math.max(1, newQuantity), item.amount) };
+        }
+        return item;
+      });
+    });
+  };
+  
+  const removeFromCart = (drugId) => {
+    setCart(prevCart => prevCart.filter(item => item.idDrug !== drugId));
+  };
+  
+  const clearCart = () => {
+    setCart([]);
+    localStorage.removeItem('cart');
+  };
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
+
   useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname.substring(1);
@@ -85,6 +139,7 @@ const App = () => {
 
   const handleUserLogout = () => {
     localStorage.removeItem('userToken');
+    localStorage.removeItem('cart');
     setUserToken(null);
     navigateTo("logowanie");
   };
@@ -98,11 +153,11 @@ const App = () => {
       case "nawigacja":
         return <Nawigacja userToken={userToken} navigateTo={navigateTo} onLogout={handleUserLogout} />;
       case "lista-lekow":
-        return <ListaLek userToken={userToken} navigateTo={navigateTo} />;
+        return <ListaLek userToken={userToken} navigateTo={navigateTo} onLogout={handleUserLogout} addToCart={addToCart}/>;
       case "koszyk":
-        return <Koszyk userToken={userToken} navigateTo={navigateTo} />;
+        return <Koszyk userToken={userToken} navigateTo={navigateTo} onLogout={handleUserLogout} cart={cart} totalPrice={totalPrice} updateQuantity={updateQuantity} removeFromCart={removeFromCart} clearCart={clearCart}/>;
       case "historia":
-        return <HistoriaZam userToken={userToken} navigateTo={navigateTo} />;
+        return <HistoriaZam userToken={userToken} navigateTo={navigateTo} onLogout={handleUserLogout} />;
       case "admin":
         return <AdminPanel userToken={userToken} navigateTo={navigateTo} onLogout={handleUserLogout} />;
       case "raporty":
