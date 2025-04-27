@@ -57,9 +57,15 @@ const Nawigacja = ({ userToken, navigateTo, onLogout }) => {
       <nav className="nnav-bar">
         <h1 className="nh1"> Zielona Apteka</h1>
         <ul>
-          <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
-          <li onClick={() => navigateTo("koszyk")}>Koszyk</li>
-          <li onClick={() => navigateTo("historia")}>Historia zamówień</li>
+          {!isEmployee && (
+            <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
+          )}
+          {!isEmployee && (
+            <li onClick={() => navigateTo("koszyk")}>Koszyk</li>
+          )}
+          {!isEmployee && (
+            <li onClick={() => navigateTo("historia")}>Historia zamówień</li>
+          )}
           {isEmployee && (
             <li onClick={() => navigateTo("raporty")}>Raporty zamówień</li>
           )}

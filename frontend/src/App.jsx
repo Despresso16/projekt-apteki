@@ -104,7 +104,7 @@ const App = () => {
       case "historia":
         return <HistoriaZam userToken={userToken} navigateTo={navigateTo} />;
       case "admin":
-        return <AdminPanel userToken={userToken} navigateTo={navigateTo} />;
+        return <AdminPanel userToken={userToken} navigateTo={navigateTo} onLogout={handleUserLogout} />;
       case "raporty":
         console.log("Nie ma jeszcze stronki od raportów, TODO");
         return

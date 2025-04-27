@@ -1,11 +1,13 @@
 .admin-panel {
-    width: 90%;
-    max-width: 900px;
+    width: 80vw;
+    min-height: 60vh;
+    max-height: 98vh;
     padding: 25px;
     background-color: #2a2a2a;
     border-radius: 12px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.5s;
 }
 
 .aph1 {
