@@ -4,12 +4,6 @@ npm-debug.log
 yarn-debug.log
 yarn-error.log
 
-# Środowisko
-.env
-.env.local
-.env.development
-.env.test
-.env.production
 
 # Logi
 logs/
