@@ -135,10 +135,12 @@ const App = () => {
   const handleUserLogin = (token) => {
     localStorage.setItem('userToken', token);
     setUserToken(token);
+    setCart([]);
   };
 
   const handleUserLogout = () => {
     localStorage.removeItem('userToken');
+    setCart([]);
     localStorage.removeItem('cart');
     setUserToken(null);
     navigateTo("logowanie");

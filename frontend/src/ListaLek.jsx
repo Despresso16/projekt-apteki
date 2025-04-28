@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ListaLek.css";
 
-const ListaLek = ({ userToken, navigateTo, onLogout }) => {
+const ListaLek = ({ userToken, navigateTo, onLogout, addToCart}) => {
   const [leki, setLeki] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -16,7 +16,6 @@ const ListaLek = ({ userToken, navigateTo, onLogout }) => {
   const [showQuantityPopup, setShowQuantityPopup] = useState(false);
   const [selectedDrug, setSelectedDrug] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [currentImage, setCurrentImage] = useState(0);
     const [isEmployee, setIsEmployee] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
   
@@ -61,7 +60,7 @@ const ListaLek = ({ userToken, navigateTo, onLogout }) => {
         },
         body: JSON.stringify({
           page: currentPage,
-          limit: 10,
+          limit: 5,
           filter: filters,
           orderBy: 'name',
           descending: false
@@ -114,7 +113,7 @@ const ListaLek = ({ userToken, navigateTo, onLogout }) => {
   };
   const showAddToCartPopup = (drug) => {
     setSelectedDrug(drug);
-    setQuantity(1); // Reset quantity to 1
+    setQuantity(1); 
     setShowQuantityPopup(true);
   };
 
@@ -136,32 +135,6 @@ const ListaLek = ({ userToken, navigateTo, onLogout }) => {
     hideAddToCartPopup();
   };
 
-  const addToCart = () => {
-    if (!selectedDrug) return;
-    const cartFromStorage = localStorage.getItem('cart');
-    let cart = [];
-    
-    if (cartFromStorage) {
-      cart = JSON.parse(cartFromStorage);
-    }
-    const existingItemIndex = cart.findIndex(item => item.idDrug === selectedDrug.idDrug);
-    
-    if (existingItemIndex >= 0) {
-      const newQuantity = cart[existingItemIndex].quantity + quantity;
-      if (newQuantity > selectedDrug.amount) {
-        cart[existingItemIndex].quantity = selectedDrug.amount;
-      } else {
-        cart[existingItemIndex].quantity = newQuantity;
-      }
-    } else {
-      cart.push({
-        ...selectedDrug,
-        quantity: quantity
-      });
-    }
-    localStorage.setItem('cart', JSON.stringify(cart));
-    hideAddToCartPopup();
-  };
   
 
   return (
@@ -170,6 +143,7 @@ const ListaLek = ({ userToken, navigateTo, onLogout }) => {
         <h1 className="llh1">Witamy w Zielonej Aptece</h1>
         <div className="llnav-buttons">
         <ul>
+          <li onClick={() => navigateTo("nawigacja")}>Główne menu</li>
           {!isEmployee && (
             <li onClick={() => navigateTo("koszyk")}>Koszyk</li>
           )}

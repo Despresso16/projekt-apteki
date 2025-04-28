@@ -1,20 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import "./Koszyk.css";
 
-const Koszyk = ({
-  userToken, 
-  navigateTo, 
-  onLogout, 
-  cart, 
-  totalPrice, 
-  updateQuantity, 
-  removeFromCart, 
-  clearCart
-}) => {
+const Koszyk = ({userToken, navigateTo, onLogout, cart, totalPrice, updateQuantity, removeFromCart, clearCart}) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [orderSuccess, setOrderSuccess] = useState(false);
+    const [isEmployee, setIsEmployee] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     const [orderInProgress, setOrderInProgress] = useState(false);
+
+
+    useEffect(() => {
+        console.log("userToken: " + userToken);
+        const fetchUserData = async () => {
+          try {
+            const response = await fetch('/api/v1/me', {
+              headers: {
+                'Authorization': userToken
+              }
+            });
+            
+            if (response.ok) {
+              const userData = await response.json();
+              setIsEmployee(false)
+              setIsAdmin(false)
+              if(userData.email === "admin@zielonaApteka.pl"){
+                setIsEmployee(true)
+                setIsAdmin(true)
+              }
+              else if(userData.email == "pracownik1@zielonaApteka.pl") setIsEmployee(true);
+            }
+          } catch (error) {
+            console.error("Błąd pobierania danych użytkownika:", error);
+          }
+        };
+        
+        if (userToken) {
+          fetchUserData();
+        }
+      }, [userToken]);
 
     useEffect(() => {
         if (orderSuccess) {
@@ -76,13 +100,25 @@ const Koszyk = ({
     };
 
     return (
-        <div className="koszyk">
+        <div className="koszyk-container">
+            <div className="koszyk">
             <h1 className='kh1'>Twój koszyk</h1>
             <div className="kprzyciski">
-                <button onClick={() => navigateTo("lista-lekow")}>Lista Leków</button>
-                <button onClick={() => navigateTo("historia")}>Historia Zamówień</button>
+                <button onClick={() => navigateTo("nawigacja")}>Główne menu</button>
+                {!isEmployee && (
+                    <button onClick={() => navigateTo("lista-lekow")}>Zamów leki</button>
+                )}
+                {!isEmployee && (
+                    <button onClick={() => navigateTo("historia")}>Historia zamówień</button>
+                )}
+                {isEmployee && (
+                    <button onClick={() => navigateTo("raporty")}>Raporty zamówień</button>
+                )}
+                {isEmployee && (
+                    <button onClick={() => navigateTo("admin")}>Panel administratora</button>
+                )}
                 <button onClick={() => navigateTo("konto")}>Konto</button>
-                <button onClick={onLogout}>Wyloguj</button>
+                <button onClick={() => onLogout()}>Wyloguj się</button>
             </div>
             
             {orderSuccess && (
@@ -121,7 +157,7 @@ const Koszyk = ({
                             </button>
                         </div>
                     ) : (
-                        <>
+                        <div className='ktable-container'>
                             <table className='ktable'>
                                 <thead>
                                     <tr>
@@ -201,13 +237,14 @@ const Koszyk = ({
                                     onClick={placeOrder} 
                                     disabled={loading || cart.length === 0}
                                 >
-                                    {loading ? 'Przetwarzanie...' : 'Zamów'}
+                                    {loading ? 'Przetwarzanie...' : 'Potwierdź zamówienie'}
                                 </button>
                             </div>
-                        </>
+                        </div>
                     )}
                 </>
             )}
+        </div>
         </div>
     );
 };

@@ -83,6 +83,7 @@ const Konto = ({userToken, navigateTo, onLogout}) => {
       
       <div className="koprzyciski">
       <ul className='konav'>
+          <li onClick={() => navigateTo("nawigacja")}>Główne menu</li>
           {!isEmployee && (
             <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
           )}
