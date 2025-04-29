@@ -15,9 +15,34 @@
     margin-bottom: 20px;
   }
   
-  .hzprzyciski {
-    margin: 20px 0;
-  }
+  .hzpagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.hzpagination button {
+  padding: 8px 14px;
+  background-color: #008802;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.hzpagination button:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+}
+
+.hzpagination span {
+  font-size: 16px;
+}
+
   
   .hznav {
     list-style: none;

@@ -7,6 +7,7 @@ import Koszyk from "./Koszyk.jsx";
 import HistoriaZam from "./HistoriaZam.jsx";
 import AdminPanel from "./AdminPanel.jsx";
 import Konto from "./Konto.jsx";
+import RaportZamowien from "./RaportZamowien.jsx";
 
 const App = () => {
   const getInitialPage = () => {
@@ -174,7 +175,7 @@ const App = () => {
 
   return (
     <>
-      {renderPage()}
+      <Nawigacja/>
     </>
   )
 }

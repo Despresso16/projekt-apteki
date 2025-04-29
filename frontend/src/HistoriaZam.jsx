@@ -238,7 +238,7 @@ const HistoriaZam = ({ userToken, navigateTo, onLogout }) => {
         </tbody>
       </table>
       
-      <div className="hzprzyciski">
+      <div className="hzpagination">
         <button 
           onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
           disabled={currentPage === 0 || loading}

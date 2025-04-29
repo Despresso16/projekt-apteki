@@ -270,7 +270,7 @@ const ListaLek = ({ userToken, navigateTo, onLogout, addToCart}) => {
           </tbody>
         </table>
         
-        <div className="llprzyciski">
+        <div className="pagination-controls">
           <button 
             onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
             disabled={currentPage === 0 || loading}

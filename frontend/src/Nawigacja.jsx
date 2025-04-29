@@ -14,6 +14,28 @@ const Nawigacja = ({ userToken, navigateTo, onLogout }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isEmployee, setIsEmployee] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const slogans = [
+    "Naturalne wsparcie dla Twojego zdrowia",
+    "Zielona moc roślin w każdej kapsułce",
+    "Twoje zdrowie – nasza pasja",
+    "Rośnij w zdrowie z nami",
+    "Apteka, której możesz zaufać",
+    "W zgodzie z naturą, w trosce o Ciebie",
+    "Bezpieczne zakupy, zdrowe wybory",
+    "Z miłości do natury i zdrowia",
+    "Zielona Apteka – bliżej natury",
+    "Od natury dla Ciebie – codziennie"
+  ];
+  
+  const [currentSlogan, setCurrentSlogan] = useState(0);
+  
+  useEffect(() => {
+    const sloganInterval = setInterval(() => {
+      setCurrentSlogan((prev) => (prev + 1) % slogans.length);
+    }, 4000);
+    return () => clearInterval(sloganInterval);
+  }, []);
+  
 
   useEffect(() => {
     console.log("userToken: " + userToken);
@@ -55,7 +77,11 @@ const Nawigacja = ({ userToken, navigateTo, onLogout }) => {
   return (
     <div className="napteka-container">
       <nav className="nnav-bar">
-        <h1 className="nh1"> Zielona Apteka</h1>
+      <div className="nwelcome-banner">
+      <h2>{slogans[currentSlogan]}</h2>
+      </div>
+
+
         <ul>
           {!isEmployee && (
             <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
