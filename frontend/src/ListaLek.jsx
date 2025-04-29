@@ -16,38 +16,8 @@ const ListaLek = ({ userToken, navigateTo, onLogout, addToCart}) => {
   const [showQuantityPopup, setShowQuantityPopup] = useState(false);
   const [selectedDrug, setSelectedDrug] = useState(null);
   const [quantity, setQuantity] = useState(1);
-    const [isEmployee, setIsEmployee] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
   
-    useEffect(() => {
-      console.log("userToken: " + userToken);
-      const fetchUserData = async () => {
-        try {
-          const response = await fetch('/api/v1/me', {
-            headers: {
-              'Authorization': userToken
-            }
-          });
-          
-          if (response.ok) {
-            const userData = await response.json();
-            setIsEmployee(false)
-            setIsAdmin(false)
-            if(userData.email === "admin@zielonaApteka.pl"){
-              setIsEmployee(true)
-              setIsAdmin(true)
-            }
-            else if(userData.email == "pracownik1@zielonaApteka.pl") setIsEmployee(true);
-          }
-        } catch (error) {
-          console.error("Błąd pobierania danych użytkownika:", error);
-        }
-      };
-      
-      if (userToken) {
-        fetchUserData();
-      }
-    }, [userToken]);
+   
 
   const fetchDrugs = async () => {
     try {
@@ -143,32 +113,16 @@ const ListaLek = ({ userToken, navigateTo, onLogout, addToCart}) => {
         <h1 className="llh1">Witamy w Zielonej Aptece</h1>
         <div className="llnav-buttons">
         <ul>
+          <li onClick={() => {setShowFilters(!showFilters);}}>{showFilters ? 'Ukryj filtry' : 'Filtruj'}</li>
           <li onClick={() => navigateTo("nawigacja")}>Główne menu</li>
-          {!isEmployee && (
-            <li onClick={() => navigateTo("koszyk")}>Koszyk</li>
-          )}
-          {!isEmployee && (
-            <li onClick={() => navigateTo("historia")}>Historia zamówień</li>
-          )}
-          {isEmployee && (
-            <li onClick={() => navigateTo("raporty")}>Raporty zamówień</li>
-          )}
-          {isAdmin && (
-            <li onClick={() => navigateTo("admin")}>Panel administratora</li>
-          )}
+          <li onClick={() => navigateTo("koszyk")}>Koszyk</li>
+          <li onClick={() => navigateTo("historia")}>Historia zamówień</li>
           <li onClick={() => navigateTo("konto")}>Konto</li>
           <li onClick={() => onLogout()}>Wyloguj się</li>
         </ul>
         </div>
       </header>
       
-      <div className="llprzyciski">
-        <button onClick={() => {
-          setShowFilters(!showFilters);
-        }}>
-          {showFilters ? 'Ukryj filtry' : 'Filtruj'}
-        </button>
-      </div>
       
       {showFilters && (
         <div className="filtracja">
@@ -274,16 +228,12 @@ const ListaLek = ({ userToken, navigateTo, onLogout, addToCart}) => {
           <button 
             onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
             disabled={currentPage === 0 || loading}
-          >
-            Poprzednia strona
-          </button>
+          > Poprzednia strona</button>
           <span>Strona {currentPage + 1} z {totalPages || 1}</span>
           <button 
             onClick={() => setCurrentPage(prev => Math.min(totalPages - 1, prev + 1))}
             disabled={currentPage >= totalPages - 1 || totalPages === 0 || loading}
-          >
-            Następna strona
-          </button>
+          > Następna strona</button>
         </div>
       </section>
 

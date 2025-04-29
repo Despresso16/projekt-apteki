@@ -77,11 +77,10 @@ const Nawigacja = ({ userToken, navigateTo, onLogout }) => {
   return (
     <div className="napteka-container">
       <nav className="nnav-bar">
-      <div className="nwelcome-banner">
-      <h2>{slogans[currentSlogan]}</h2>
+      <div className="logo-container">
+      <img src="src/assets/logo.svg" alt="logo" id="logo" />
+      <h1>Zielona Apteka</h1>
       </div>
-
-
         <ul>
           {!isEmployee && (
             <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
@@ -104,6 +103,33 @@ const Nawigacja = ({ userToken, navigateTo, onLogout }) => {
       </nav>
 
       <div className="nmain-container">
+      <div className="left">
+        <h2 className="slogan">{slogans[currentSlogan]}</h2>
+        <h5>Nasza filozofia</h5>
+        <p>
+          W centrum naszego podejścia znajduje się człowiek – nie tylko jako pacjent, ale jako całościowa istota, której zdrowie zależy od wielu czynników. Łączymy wiedzę farmaceutyczną z naturalnymi rozwiązaniami: ziołolecznictwem, suplementacją i holistyczną troską o organizm. Wierzymy, że natura dostarcza wielu odpowiedzi, a naszą rolą jest pomóc je znaleźć.
+        </p>
+
+        <h5>Co oferujemy?</h5>
+        <ul>
+          <li><strong>Leki na receptę i bez recepty</strong> – sprawdzone produkty farmaceutyczne najwyższej jakości</li>
+          <li><strong>Zioła i preparaty roślinne</strong> – tradycyjne i nowoczesne środki wspierające naturalną terapię</li>
+          <li><strong>Suplementy diety</strong> – wspomagające odporność, układ nerwowy, trawienny i wiele innych</li>
+          <li><strong>Dermokosmetyki</strong> – dla skóry wrażliwej, problematycznej i wymagającej szczególnej pielęgnacji</li>
+          <li><strong>Porady farmaceutyczne</strong> – zawsze możesz liczyć na fachową, indywidualną pomoc</li>
+        </ul>
+
+        <h5>Dlaczego warto nam zaufać?</h5>
+        <p>
+          W Zielonej Aptece stawiamy na uczciwość, rzetelną wiedzę i empatyczne podejście. Nie jesteśmy jedynie punktem sprzedaży – jesteśmy partnerem w Twojej codziennej trosce o zdrowie. Dbamy o to, by każdy klient czuł się u nas zaopiekowany i wyszedł z rozwiązaniem dopasowanym do swoich potrzeb.
+        </p>
+
+        <h5>Zajrzyj do nas</h5>
+        <p>
+          Zapraszamy do naszej apteki stacjonarnej oraz sklepu internetowego – gdziekolwiek jesteś, Zielona Apteka jest blisko Ciebie. Oferujemy szybkie dostawy, bezpieczne zakupy online i dostęp do szerokiego asortymentu naturalnych produktów prozdrowotnych.
+        </p>
+        </div>
+      <div className="right">
       {images.map((src, index) => (
         <img
           key={index}
@@ -112,6 +138,7 @@ const Nawigacja = ({ userToken, navigateTo, onLogout }) => {
           className={`nimg ${index === currentImage ? "active" : ""}`}
         />
         ))}
+      </div>
       </div>
       <footer className="nfooter">
       <p>© 2025 Apteka Online. Wszelkie prawa zastrzeżone.</p>

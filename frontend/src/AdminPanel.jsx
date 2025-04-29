@@ -259,7 +259,9 @@ const AdminPanel = ({userToken, navigateTo, onLogout}) => {
                 }}>
                     {showAddForm ? 'Anuluj dodawanie' : 'Dodaj lek'}
                 </button>
-                <button onClick={() => navigateTo('nawigacja')}>Powrót do menu</button>
+                <button onClick={() => navigateTo('nawigacja')}>Menu główne</button>
+                <button onClick={() => navigateTo('raporty')}>Raporty</button>
+                <button onClick={() => navigateTo('konto')}>Konto</button>
                 <button onClick={onLogout}>Wyloguj</button>
             </div>
             
@@ -528,7 +530,7 @@ const AdminPanel = ({userToken, navigateTo, onLogout}) => {
                                     <button className="btn-edytuj" onClick={() => handleEditClick(drug)}>Edytuj</button>
                                 </td>
                                 <td className="aptd">
-                                    <button className="btn-edytuj" onClick={() => handleDeleteClick(drug.idDrug)}>Usuń</button>
+                                    <button className="btn-edytuj btn-usun" onClick={() => handleDeleteClick(drug.idDrug)}>Usuń</button>
                                 </td>
                             </tr>
                         ))

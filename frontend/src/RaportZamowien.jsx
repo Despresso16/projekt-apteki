@@ -1,76 +1,134 @@
-import React, { useEffect, useState } from "react";
-import "./RaportZamowien.css";
+import React, { useState, useEffect } from "react";
+import "./HistoriaZam.css";
 
-const RaportZamowien = ({ userToken, navigateTo }) => {
-  const [reportData, setReportData] = useState([]);
+const RaportZamowien = ({ userToken, navigateTo, onLogout }) => {
+  const [orders, setOrders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchReport = async () => {
-      try {
-        const response = await fetch("/api/v1/orderReport", {
-          headers: {
-            Authorization: userToken,
-          },
-        });
+ 
 
-        const data = await response.json();
+  const fetchOrderReports = async () => {
+    if (!userToken) return;
+    
+    try {
+      setLoading(true); 
+      setError(null);
+      
+      const response = await fetch('/api/v1/orderReport', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': userToken
+        },
+        body: JSON.stringify({
+          page: currentPage,
+          limit: 5,
+          orderBy: 'purchase_date',
+          descending: true
+        })
+      });
 
-        if (data.status === "success") {
-          setReportData(data.data);
-        } else {
-          setError(data.data || "Nie udało się pobrać raportu.");
-        }
-      } catch (err) {
-        console.error(err);
-        setError("Błąd połączenia z serwerem.");
-      } finally {
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error(`Serwer zwrócił błąd ${response.status}`);
       }
-    };
 
-    if (userToken) fetchReport();
-  }, [userToken]);
+      const data = await response.json();
+      console.log("Otrzymane dane raportu:", data);
+      
+      if (data.status === 'success') {
+        setOrders(data.data);
+        setTotalPages(data.metadata.pageCount);
+        console.log("Ustawiam totalPages na:", data.metadata.pageCount);
+      } else {
+        setError(data.data || 'Nie udało się pobrać raportu zamówień');
+      }
+    } catch (err) {
+      setError('Błąd połączenia z serwerem: ' + err.message);
+      console.error("Error fetching order reports:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrderReports();
+  }, [currentPage, userToken]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString();
+  };
 
   return (
-    <div className="rz-container">
-      <h1 className="rz-title">Raport zamówień</h1>
-      <div className="rz-nav-buttons">
-      <button className="rz-button" onClick={() => navigateTo("nawigacja")}>
-        Powrót do menu
-      </button>
-   </div>
-
-      {loading && <p className="rz-message">Ładowanie danych...</p>}
-      {error && <p className="rz-error">{error}</p>}
-
-      {!loading && !error && (
-        <table className="rz-table">
-          <thead>
-            <tr>
-              <th className="rz-th">ID leku</th>
-              <th className="rz-th">Nazwa</th>
-              <th className="rz-th">Firma</th>
-              <th className="rz-th">Typ</th>
-              <th className="rz-th">Łączna ilość</th>
-              <th className="rz-th">Przychód (zł)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reportData.map((item) => (
-              <tr key={item.idDrug}>
-                <td className="rz-td">{item.idDrug}</td>
-                <td className="rz-td">{item.drug_name}</td>
-                <td className="rz-td">{item.companyName}</td>
-                <td className="rz-td">{item.type}</td>
-                <td className="rz-td">{item.total_amount}</td>
-                <td className="rz-td">{item.total_revenue.toFixed(2)}</td>
+    <div className="historia-zam">
+      <h1 className='hzh1'>Raport zamówień</h1>
+      <div className="hzprzyciski">
+        <ul className='hznav'>
+          <li onClick={() => navigateTo("nawigacja")}>Główne menu</li>
+          <li onClick={() => navigateTo("admin")}>Panel administratora</li>
+          <li onClick={() => navigateTo("konto")}>Konto</li>
+          <li onClick={() => onLogout()}>Wyloguj się</li>
+        </ul>
+      </div>
+      
+      {loading && <p>Ładowanie raportu zamówień...</p>}
+      {error && <p className="error-message">Błąd: {error}</p>}
+      
+      <table className='hztable'>
+        <thead>
+          <tr>
+            <th className='hzth'>ID zamówienia</th>
+            <th className='hzth'>Data zamówienia</th>
+            <th className='hzth'>Cena</th>
+            <th className='hzth'>ID leku</th>
+            <th className='hzth'>Nazwa leku</th>
+            <th className='hzth'>Zakupiona ilość</th>
+            <th className='hzth'>Dawka</th>
+            <th className='hzth'>Typ</th>
+            <th className='hzth'>Firma</th>
+            <th className='hzth'>Email użytkownika</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.length > 0 ? (
+            orders.map(order => (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{formatDate(order.purchase_date)}</td>
+                <td>{(order.price * order.purchase_amount).toFixed(2)} zł</td>
+                <td>{order.idDrug}</td>
+                <td>{order.drug_name}</td>
+                <td>{order.purchase_amount}</td>
+                <td>{order.dose} mg</td>
+                <td>{order.type}</td>
+                <td>{order.companyName}</td>
+                <td>{order.user_email}</td>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+            ))
+          ) : !loading && (
+            <tr>
+              <td colSpan="10">Brak zamówień do wyświetlenia</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      
+      <div className="hzpagination">
+        <button 
+          onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
+          disabled={currentPage === 0 || loading}
+        >Poprzednia strona </button>
+        <span>
+          Strona {currentPage + 1} z {totalPages || 1}
+        </span>
+        <button 
+          onClick={() => setCurrentPage(prev => Math.min(totalPages - 1, prev + 1))}
+          disabled={currentPage >= totalPages - 1 || totalPages === 0 || loading}
+        >Następna strona </button>
+      </div>
     </div>
   );
 };

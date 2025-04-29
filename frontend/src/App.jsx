@@ -164,8 +164,7 @@ const App = () => {
       case "admin":
         return <AdminPanel userToken={userToken} navigateTo={navigateTo} onLogout={handleUserLogout} />;
       case "raporty":
-        console.log("Nie ma jeszcze stronki od raportów, TODO");
-        return
+        return <RaportZamowien userToken={userToken} navigateTo={navigateTo} onLogout={handleUserLogout} />;
       case "konto":
         return <Konto userToken={userToken} navigateTo={navigateTo} onLogout={handleUserLogout} />;
       default:
@@ -175,7 +174,7 @@ const App = () => {
 
   return (
     <>
-      <Nawigacja/>
+      {renderPage()}
     </>
   )
 }

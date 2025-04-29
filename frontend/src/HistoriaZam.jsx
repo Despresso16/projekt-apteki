@@ -2,53 +2,21 @@ import React, { useState, useEffect } from "react";
 import "./HistoriaZam.css";
 
 const HistoriaZam = ({ userToken, navigateTo, onLogout }) => {
-  const [isEmployee, setIsEmployee] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [orders, setOrders] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [showFilters, setShowFilters] = useState(false);
-  const [filters, setFilters] = useState([]);
-  const [filterForm, setFilterForm] = useState({
-    field: 'drug_name',
-    value: ''
-  });
 
-  useEffect(() => {
-    console.log("userToken: " + userToken);
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch('/api/v1/me', {
-          headers: {
-            'Authorization': userToken
-          }
-        });
-        
-        if (response.ok) {
-          const userData = await response.json();
-          setIsEmployee(false);
-          setIsAdmin(false);
-          if(userData.email === "admin@zielonaApteka.pl"){
-            setIsEmployee(true);
-            setIsAdmin(true);
-          }
-          else if(userData.email === "pracownik1@zielonaApteka.pl") setIsEmployee(true);
-        }
-      } catch (error) {
-        console.error("Błąd pobierania danych użytkownika:", error);
-      }
-    };
-    
-    if (userToken) {
-      fetchUserData();
-    }
-  }, [userToken]);
+ 
 
   const fetchOrders = async () => {
+    if (!userToken) return;
+    
     try {
-      setLoading(true);
+      setLoading(true); 
+      setError(null);
+      
       const response = await fetch('/api/v1/orderHistory', {
         method: 'POST',
         headers: {
@@ -57,61 +25,46 @@ const HistoriaZam = ({ userToken, navigateTo, onLogout }) => {
         },
         body: JSON.stringify({
           page: currentPage,
-          limit: 20,
-          filter: filters,
+          limit: 5,
           orderBy: 'purchase_date',
           descending: true
         })
       });
 
+      if (!response.ok) {
+        throw new Error(`Serwer zwrócił błąd ${response.status}`);
+      }
+
       const data = await response.json();
+      console.log("Otrzymane dane:", data);
       
       if (data.status === 'success') {
         setOrders(data.data);
         setTotalPages(data.metadata.pageCount);
+        console.log("Ustawiam totalPages na:", data.metadata.pageCount);
       } else {
         setError(data.data || 'Nie udało się pobrać historii zamówień');
       }
     } catch (err) {
-      setError('Błąd połączenia z serwerem');
-      console.error(err);
+      setError('Błąd połączenia z serwerem: ' + err.message);
+      console.error("Error fetching orders:", err);
     } finally {
-      setLoading(false);
+      setLoading(false); 
+      console.log("Loading ustawiony na false");
     }
   };
 
   useEffect(() => {
     fetchOrders();
-  }, [currentPage, userToken, filters]);
+  }, [currentPage, userToken]);
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilterForm(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
 
-  const addFilter = () => {
-    if (filterForm.value.trim() === '') return;
-    
-    const newFilter = { [filterForm.field]: filterForm.value };
-    setFilters([...filters, newFilter]);
-    setFilterForm({ field: 'drug_name', value: '' });
-  };
 
-  const removeFilter = (index) => {
-    setFilters(filters.filter((_, i) => i !== index));
-  };
-
-  const resetFilters = () => {
-    setFilters([]);
-    setFilterForm({ field: 'drug_name', value: '' });
-  };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleString();
   };
+
 
   return (
     <div className="historia-zam">
@@ -119,84 +72,14 @@ const HistoriaZam = ({ userToken, navigateTo, onLogout }) => {
       <div className="hzprzyciski">
         <ul className='hznav'>
           <li onClick={() => navigateTo("nawigacja")}>Główne menu</li>
-          {!isEmployee && (
-            <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
-          )}
-          {!isEmployee && (
-            <li onClick={() => navigateTo("koszyk")}>Koszyk</li>
-          )}
-          {isEmployee && (
-            <li onClick={() => navigateTo("raporty")}>Raporty zamówień</li>
-          )}
-          {isAdmin && (
-            <li onClick={() => navigateTo("admin")}>Panel administratora</li>
-          )}
+          <li onClick={() => navigateTo("lista-lekow")}>Zamów leki</li>
+          <li onClick={() => navigateTo("koszyk")}>Koszyk</li>
           <li onClick={() => navigateTo("konto")}>Konto</li>
           <li onClick={() => onLogout()}>Wyloguj się</li>
         </ul>
       </div>
       
-      <div className="hzprzyciski">
-        <button onClick={() => {
-          setShowFilters(!showFilters);
-        }}>
-          {showFilters ? 'Ukryj filtry' : 'Filtruj'}
-        </button>
-      </div>
       
-      {showFilters && (
-        <div className="filtracja">
-          <h3>Filtry</h3>
-          <div className="active-filters">
-            <h4>Aktywne filtry:</h4>
-            {filters.length === 0 ? (
-              <p>Brak aktywnych filtrów</p>
-            ) : (
-              <ul>
-                {filters.map((filter, index) => {
-                  const field = Object.keys(filter)[0];
-                  const value = filter[field];
-                  return (
-                    <li key={index}>
-                      {field}: {value}
-                      <button onClick={() => removeFilter(index)}>Usuń</button>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-            {filters.length > 0 && (
-              <button onClick={resetFilters}>
-                Resetuj wszystkie filtry
-              </button>
-            )}
-          </div>
-          
-          <div className="add-filter">
-            <h4>Dodaj filtr</h4>
-            <div className="filter-form">
-              <select 
-                name="field" 
-                value={filterForm.field}
-                onChange={handleFilterChange}
-              >
-                <option value="drug_name">Nazwa leku</option>
-                <option value="type">Typ</option>
-                <option value="companyName">Firma</option>
-                <option value="id">ID zamówienia</option>
-              </select>
-              <input 
-                type="text" 
-                name="value" 
-                value={filterForm.value}
-                onChange={handleFilterChange}
-                placeholder="Wartość filtru"
-              />
-              <button onClick={addFilter}>Dodaj filtr</button>
-            </div>
-          </div>
-        </div>
-      )}
       
       {loading && <p>Ładowanie historii zamówień...</p>}
       {error && <p className="error-message">Błąd: {error}</p>}
@@ -239,19 +122,17 @@ const HistoriaZam = ({ userToken, navigateTo, onLogout }) => {
       </table>
       
       <div className="hzpagination">
-        <button 
+      <button 
           onClick={() => setCurrentPage(prev => Math.max(0, prev - 1))}
           disabled={currentPage === 0 || loading}
-        >
-          Poprzednia strona
-        </button>
-        <span>Strona {currentPage + 1} z {totalPages || 1}</span>
+        >Poprzednia strona </button>
+        <span>
+          Strona {currentPage + 1} z {totalPages || 1}
+        </span>
         <button 
           onClick={() => setCurrentPage(prev => Math.min(totalPages - 1, prev + 1))}
           disabled={currentPage >= totalPages - 1 || totalPages === 0 || loading}
-        >
-          Następna strona
-        </button>
+        >Następna strona </button>
       </div>
     </div>
   );

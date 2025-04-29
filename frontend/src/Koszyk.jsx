@@ -5,12 +5,10 @@ const Koszyk = ({userToken, navigateTo, onLogout, cart, totalPrice, updateQuanti
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [orderSuccess, setOrderSuccess] = useState(false);
-    const [isEmployee, setIsEmployee] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false);
     const [orderInProgress, setOrderInProgress] = useState(false);
 
 
-    useEffect(() => {
+ useEffect(() => {
         console.log("userToken: " + userToken);
         const fetchUserData = async () => {
           try {
@@ -105,18 +103,8 @@ const Koszyk = ({userToken, navigateTo, onLogout, cart, totalPrice, updateQuanti
             <h1 className='kh1'>Twój koszyk</h1>
             <div className="kprzyciski">
                 <button onClick={() => navigateTo("nawigacja")}>Główne menu</button>
-                {!isEmployee && (
-                    <button onClick={() => navigateTo("lista-lekow")}>Zamów leki</button>
-                )}
-                {!isEmployee && (
-                    <button onClick={() => navigateTo("historia")}>Historia zamówień</button>
-                )}
-                {isEmployee && (
-                    <button onClick={() => navigateTo("raporty")}>Raporty zamówień</button>
-                )}
-                {isEmployee && (
-                    <button onClick={() => navigateTo("admin")}>Panel administratora</button>
-                )}
+                <button onClick={() => navigateTo("lista-lekow")}>Zamów leki</button>
+                <button onClick={() => navigateTo("historia")}>Historia zamówień</button>
                 <button onClick={() => navigateTo("konto")}>Konto</button>
                 <button onClick={() => onLogout()}>Wyloguj się</button>
             </div>

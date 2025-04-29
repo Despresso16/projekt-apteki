@@ -49,18 +49,14 @@
   .nmain-container {
     flex: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
     position: relative;
     overflow: hidden;
     height: 100px;
   }
   
   .nimg {
-    width: auto;
-    height: 90px;
-    max-width: 90%;
-    object-fit: contain;
+    width: 70%;
+    height: 20%;
     border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
     position: absolute;
@@ -105,7 +101,31 @@
     animation: fadeSlideIn 1.5s ease forwards;
   }
   
-  .nwelcome-banner h2 {
+  .left {
+    width: 30vw;
+    height: 100%;
+    padding: 20px;
+  }
+  .left ul{
+    margin-left: 20px;
+  }
+  .left h5{
+    color: #008802;
+  }
+  .right{
+    width: 70vw;
+    height: 60vh;
+    margin-top: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .right img{
+    width: 50vw;
+    height: 100%;
+  }
+  .left h2 {
+    color: #008802;
     margin: 0;
     animation: fadeInOut 4s ease-in-out infinite;
   }
@@ -120,5 +140,14 @@
       transform: translateY(0);
     }
   }
+
+  #logo{
+    width: 5vw;
+    height: 5vw;
+  }
   
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
   
