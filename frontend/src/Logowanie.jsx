@@ -90,7 +90,6 @@ const Logowanie = ({ onLogin, navigateTo }) => {
           <button className="btn-secondary" onClick={() => navigateTo("rejestracja")}>
             Zarejestruj się
           </button>
-          <p className="link" onClick={() => navigateTo("res-haslo")}>Nie pamiętam hasła</p>
         </div>
       </div>
     </div>
